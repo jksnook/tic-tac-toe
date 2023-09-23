@@ -81,4 +81,5 @@ playButton.addEventListener('click', () => {
   const name2 = document.querySelector('#name2').value;
   const player1 = makePlayer(name1, 'X');
   const player2 = makePlayer(name2, 'O');
-  Gameboard.startGame(player1, player2)});
+  Gameboard.startGame(player1, player2)
+});
