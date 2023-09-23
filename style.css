@@ -2,6 +2,19 @@
   box-sizing: border-box;
 }
 
+ul {
+  list-style: none;
+}
+
+form ul li {
+  margin: 10px;
+}
+
+form {
+  display: flex;
+  flex-direction: column;
+}
+
 .container {
   display: flex;
   align-items: center;

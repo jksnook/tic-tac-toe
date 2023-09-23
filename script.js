@@ -2,15 +2,13 @@ const makePlayer = (playerName, marker) => {
   return {playerName, marker};
 }
 
-const player1 = makePlayer('Player 1', 'X');
-const player2 = makePlayer('Player 2', 'O');
 const myBoard = document.querySelector('div.board');
 const infoPanel = document.querySelector('div.game-info');
 
-const Gameboard = ((player1, player2, boardElement, infoElement) => {
+const Gameboard = ((boardElement, infoElement) => {
   const _board = [[null, null, null], [null, null, null], [null, null, null]];
   const _drawBoard = function() {};
-  const players = [player1, player2];
+  let players = [];
   let _currentTurn = 1;
   // returns false if game is still in progress, otherwise returns winner or 'Draw' if the game is a draw
   const winner = function() {
@@ -44,7 +42,8 @@ const Gameboard = ((player1, player2, boardElement, infoElement) => {
     return 'Draw';
   };
   // function to initialize board with all event listeners;
-  const startGame = function() {
+  const startGame = function(player1, player2) {
+    players = [player1, player2];
     _currentTurn = 1;
     infoElement.textContent = `Game in progress: ${players[_currentTurn - 1].playerName}'s turn`;
     for (let column = 0; column < 3; column++) {
@@ -73,7 +72,13 @@ const Gameboard = ((player1, player2, boardElement, infoElement) => {
     console.log(_board);
   };
   return {players, winner, startGame};
-})(player1, player2, myBoard, infoPanel);
+})(myBoard, infoPanel);
 
 const playButton = document.querySelector('button.play');
-playButton.addEventListener('click', Gameboard.startGame);
+
+playButton.addEventListener('click', () => {
+  const name1 = document.querySelector('#name1').value;
+  const name2 = document.querySelector('#name2').value;
+  const player1 = makePlayer(name1, 'X');
+  const player2 = makePlayer(name2, 'O');
+  Gameboard.startGame(player1, player2)});
