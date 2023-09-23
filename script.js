@@ -12,16 +12,17 @@ const Gameboard = ((player1, player2, boardElement, infoElement) => {
   const _drawBoard = function() {};
   const players = [player1, player2];
   let _currentTurn = 1;
+  // returns false if game is still in progress, otherwise returns winner or 'Draw' if the game is a draw
   const winner = function() {
     for (let column = 0; column < 3; column++) {
       if ( _board[column][0] && _board[column][0] == _board[column][1] && _board[column][1] == _board[column][2]) {
-        return players[_board[column][0] - 1]
+        return players[_board[column][0] - 1];
       }
     }
 
     for (let row = 0; row < 3; row++) {
       if ( _board[0][row] && _board[0][row] == _board[1][row] && _board[1][row] == _board[2][row]) {
-        return players[_board[0][row] - 1]
+        return players[_board[0][row] - 1];
       }
     }
 
@@ -59,20 +60,20 @@ const Gameboard = ((player1, player2, boardElement, infoElement) => {
     if (!winner() && !_board[column][row]) {
       _board[column][row] = _currentTurn;
       boardElement.children[column].children[row].textContent = players[_currentTurn - 1].marker;
-      _currentTurn = (_currentTurn % 2) + 1
-      infoElement.textContent = `Game in progress: ${players[_currentTurn - 1].playerName}'s turn`
+      _currentTurn = (_currentTurn % 2) + 1;
+      infoElement.textContent = `Game in progress: ${players[_currentTurn - 1].playerName}'s turn`;
     }
     if (winner()) {
       if (winner() === 'Draw') {
-        infoElement.textContent = `Game Over. Draw.`
+        infoElement.textContent = `Game Over. Draw.`;
       } else {
         infoElement.textContent = `Game Over. ${winner().playerName} wins`;
       }
     }
-    console.log(_board)
+    console.log(_board);
   };
   return {players, winner, startGame};
 })(player1, player2, myBoard, infoPanel);
 
 const playButton = document.querySelector('button.play');
-playButton.addEventListener('click', () => {Gameboard.startGame()});
+playButton.addEventListener('click', Gameboard.startGame);
